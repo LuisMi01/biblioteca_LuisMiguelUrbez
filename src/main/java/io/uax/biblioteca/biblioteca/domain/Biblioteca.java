@@ -1,16 +1,12 @@
-package io.uax.biblioteca.domain;
+package io.uax.biblioteca.biblioteca.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
+import io.uax.biblioteca.administrador.domain.Admin;
+import io.uax.biblioteca.bibliotecario.domain.Bibliotecario;
+import io.uax.biblioteca.domain.Libro;
+import io.uax.biblioteca.domain.PoliticaPrestamo;
+import io.uax.biblioteca.domain.Usuario;
+import jakarta.persistence.*;
+
 import java.time.OffsetDateTime;
 import java.util.Set;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,6 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Biblioteca {
 

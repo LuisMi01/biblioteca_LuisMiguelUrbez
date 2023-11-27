@@ -1,8 +1,8 @@
 package io.uax.biblioteca.rest;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.uax.biblioteca.model.BibliotecarioDTO;
-import io.uax.biblioteca.service.BibliotecarioService;
+import io.uax.biblioteca.bibliotecario.model.BibliotecarioDTO;
+import io.uax.biblioteca.bibliotecario.service.BibliotecarioService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;

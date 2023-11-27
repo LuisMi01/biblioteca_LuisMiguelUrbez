@@ -1,6 +1,6 @@
 package io.uax.biblioteca.service;
 
-import io.uax.biblioteca.domain.Lector;
+import io.uax.biblioteca.lector.domain.Lector;
 import io.uax.biblioteca.domain.Multas;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.model.MultasDTO;

@@ -1,26 +1,20 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout}">
-    <head>
-        <title>[[#{home.index.headline}]]</title>
-    </head>
-    <body>
-        <div layout:fragment="content">
-            <h1 class="mb-4">[[#{home.index.headline}]]</h1>
-            <p>[(#{home.index.text})]</p>
-            <p class="mb-5">[(#{home.index.swagger})]</p>
-            <div class="col-md-4 mb-5">
-                <h4 class="mb-3">[[#{home.index.exploreEntities}]]</h4>
-                <div class="list-group">
-                    <a th:href="@{/transaccionLibros}" class="list-group-item list-group-item-action">[[#{transaccionLibro.list.headline}]]</a>
-                    <a th:href="@{/bibliotecarios}" class="list-group-item list-group-item-action">[[#{bibliotecario.list.headline}]]</a>
-                    <a th:href="@{/lectors}" class="list-group-item list-group-item-action">[[#{lector.list.headline}]]</a>
-                    <a th:href="@{/libros}" class="list-group-item list-group-item-action">[[#{libro.list.headline}]]</a>
-                    <a th:href="@{/prestamos}" class="list-group-item list-group-item-action">[[#{prestamo.list.headline}]]</a>
-                    <a th:href="@{/multass}" class="list-group-item list-group-item-action">[[#{multas.list.headline}]]</a>
-                    <a th:href="@{/politicaPrestamos}" class="list-group-item list-group-item-action">[[#{politicaPrestamo.list.headline}]]</a>
-                </div>
-            </div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>[[#{home.inicio.titulo}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 class="mb-4">[[#{home.inicio.titulo}]]</h1>
+    <p>[(#{home.inicio.slogan})]</p>
+    <div class="col-md-4 mb-5">
+        <div class="list-group">
+
+            <a th:href="@{/bibliotecarios}" class="list-group-item list-group-item-action">[[#{home.boton.bibliotecario}]]</a>
+            <a th:href="@{/lectors}" class="list-group-item list-group-item-action">[[#{home.boton.lector}]]</a>
+            <a th:href="@{/administradors}" class="list-group-item list-group-item-action">[[#{home.boton.administrador}]]</a>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

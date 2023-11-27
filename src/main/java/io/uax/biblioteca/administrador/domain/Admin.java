@@ -1,5 +1,7 @@
-package io.uax.biblioteca.domain;
+package io.uax.biblioteca.administrador.domain;
 
+import io.uax.biblioteca.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.domain.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

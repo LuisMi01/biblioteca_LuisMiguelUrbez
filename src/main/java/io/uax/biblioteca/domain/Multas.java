@@ -1,5 +1,6 @@
 package io.uax.biblioteca.domain;
 
+import io.uax.biblioteca.lector.domain.Lector;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

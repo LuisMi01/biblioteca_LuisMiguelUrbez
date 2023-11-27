@@ -1,5 +1,8 @@
-package io.uax.biblioteca.domain;
+package io.uax.biblioteca.lector.domain;
 
+import io.uax.biblioteca.domain.Multas;
+import io.uax.biblioteca.domain.Prestamo;
+import io.uax.biblioteca.domain.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -22,7 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Bibliotecario {
+public class Lector {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -41,28 +44,33 @@ public class Bibliotecario {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
+    private String direccion;
+
+    @Column(nullable = false, length = 20)
+    private String telefono;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "multas_id")
+    private Multas multas;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "bibliotecario")
-    private Set<Prestamo> bibliotecarioPrestamoes;
+    @OneToMany(mappedBy = "lector")
+    private Set<Prestamo> lectorPrestamoes;
 
     @ManyToMany
     @JoinTable(
-            name = "BibliotecarioBiblioteca",
-            joinColumns = @JoinColumn(name = "bibliotecarioId"),
-            inverseJoinColumns = @JoinColumn(name = "bibliotecaId")
+            name = "LectorPrestamo",
+            joinColumns = @JoinColumn(name = "lectorId"),
+            inverseJoinColumns = @JoinColumn(name = "prestamoId")
     )
-    private Set<Biblioteca> bibliotecarioBibliotecaBibliotecas;
+    private Set<Prestamo> lectorPrestamoPrestamoes;
 
-    @ManyToMany
-    @JoinTable(
-            name = "BibliotecarioLibro",
-            joinColumns = @JoinColumn(name = "bibliotecarioId"),
-            inverseJoinColumns = @JoinColumn(name = "libroId")
-    )
-    private Set<Libro> bibliotecarioLibroLibroes;
+    @ManyToMany(mappedBy = "multasLectorLectors")
+    private Set<Multas> multasLectorMultases;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -88,6 +96,30 @@ public class Bibliotecario {
         this.nombre = nombre;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(final String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(final String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Multas getMultas() {
+        return multas;
+    }
+
+    public void setMultas(final Multas multas) {
+        this.multas = multas;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -96,29 +128,28 @@ public class Bibliotecario {
         this.usuario = usuario;
     }
 
-    public Set<Prestamo> getBibliotecarioPrestamoes() {
-        return bibliotecarioPrestamoes;
+    public Set<Prestamo> getLectorPrestamoes() {
+        return lectorPrestamoes;
     }
 
-    public void setBibliotecarioPrestamoes(final Set<Prestamo> bibliotecarioPrestamoes) {
-        this.bibliotecarioPrestamoes = bibliotecarioPrestamoes;
+    public void setLectorPrestamoes(final Set<Prestamo> lectorPrestamoes) {
+        this.lectorPrestamoes = lectorPrestamoes;
     }
 
-    public Set<Biblioteca> getBibliotecarioBibliotecaBibliotecas() {
-        return bibliotecarioBibliotecaBibliotecas;
+    public Set<Prestamo> getLectorPrestamoPrestamoes() {
+        return lectorPrestamoPrestamoes;
     }
 
-    public void setBibliotecarioBibliotecaBibliotecas(
-            final Set<Biblioteca> bibliotecarioBibliotecaBibliotecas) {
-        this.bibliotecarioBibliotecaBibliotecas = bibliotecarioBibliotecaBibliotecas;
+    public void setLectorPrestamoPrestamoes(final Set<Prestamo> lectorPrestamoPrestamoes) {
+        this.lectorPrestamoPrestamoes = lectorPrestamoPrestamoes;
     }
 
-    public Set<Libro> getBibliotecarioLibroLibroes() {
-        return bibliotecarioLibroLibroes;
+    public Set<Multas> getMultasLectorMultases() {
+        return multasLectorMultases;
     }
 
-    public void setBibliotecarioLibroLibroes(final Set<Libro> bibliotecarioLibroLibroes) {
-        this.bibliotecarioLibroLibroes = bibliotecarioLibroLibroes;
+    public void setMultasLectorMultases(final Set<Multas> multasLectorMultases) {
+        this.multasLectorMultases = multasLectorMultases;
     }
 
     public OffsetDateTime getDateCreated() {

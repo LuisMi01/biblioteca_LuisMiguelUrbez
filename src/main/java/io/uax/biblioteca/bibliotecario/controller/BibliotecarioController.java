@@ -1,13 +1,13 @@
-package io.uax.biblioteca.controller;
+package io.uax.biblioteca.bibliotecario.controller;
 
-import io.uax.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.biblioteca.domain.Biblioteca;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.Usuario;
-import io.uax.biblioteca.model.BibliotecarioDTO;
+import io.uax.biblioteca.bibliotecario.model.BibliotecarioDTO;
 import io.uax.biblioteca.repos.BibliotecaRepository;
 import io.uax.biblioteca.repos.LibroRepository;
 import io.uax.biblioteca.repos.UsuarioRepository;
-import io.uax.biblioteca.service.BibliotecarioService;
+import io.uax.biblioteca.bibliotecario.service.BibliotecarioService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.validation.Valid;

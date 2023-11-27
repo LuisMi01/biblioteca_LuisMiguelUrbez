@@ -1,5 +1,7 @@
 package io.uax.biblioteca.domain;
 
+import io.uax.biblioteca.bibliotecario.domain.Bibliotecario;
+import io.uax.biblioteca.lector.domain.Lector;
 import io.uax.biblioteca.model.EstadoPrestamo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

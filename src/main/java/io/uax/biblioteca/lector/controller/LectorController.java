@@ -1,13 +1,13 @@
-package io.uax.biblioteca.controller;
+package io.uax.biblioteca.lector.controller;
 
 import io.uax.biblioteca.domain.Multas;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.domain.Usuario;
-import io.uax.biblioteca.model.LectorDTO;
+import io.uax.biblioteca.lector.model.LectorDTO;
 import io.uax.biblioteca.repos.MultasRepository;
 import io.uax.biblioteca.repos.PrestamoRepository;
 import io.uax.biblioteca.repos.UsuarioRepository;
-import io.uax.biblioteca.service.LectorService;
+import io.uax.biblioteca.lector.service.LectorService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.validation.Valid;

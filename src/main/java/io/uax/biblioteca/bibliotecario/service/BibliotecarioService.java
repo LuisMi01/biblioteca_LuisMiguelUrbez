@@ -1,11 +1,11 @@
-package io.uax.biblioteca.service;
+package io.uax.biblioteca.bibliotecario.service;
 
-import io.uax.biblioteca.domain.Biblioteca;
-import io.uax.biblioteca.domain.Bibliotecario;
+import io.uax.biblioteca.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.bibliotecario.domain.Bibliotecario;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.domain.Usuario;
-import io.uax.biblioteca.model.BibliotecarioDTO;
+import io.uax.biblioteca.bibliotecario.model.BibliotecarioDTO;
 import io.uax.biblioteca.repos.BibliotecaRepository;
 import io.uax.biblioteca.repos.BibliotecarioRepository;
 import io.uax.biblioteca.repos.LibroRepository;

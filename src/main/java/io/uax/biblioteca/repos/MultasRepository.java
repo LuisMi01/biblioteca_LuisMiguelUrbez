@@ -1,6 +1,6 @@
 package io.uax.biblioteca.repos;
 
-import io.uax.biblioteca.domain.Lector;
+import io.uax.biblioteca.lector.domain.Lector;
 import io.uax.biblioteca.domain.Multas;
 import io.uax.biblioteca.domain.Prestamo;
 import java.util.List;

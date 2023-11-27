@@ -1,8 +1,16 @@
 spring:
+  security:
+    user:
+      name: admin
+      password: admin
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
   datasource:
-    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/biblioteca}
-    username: ${JDBC_DATABASE_USERNAME:postgres}
-    password: ${JDBC_DATABASE_PASSWORD:<<YOUR_PASSWORD>>}
+    url: jdbc:postgresql://biblioteca-postgres-1:5433/BasePrincipal
+    username: postgres
+    password: P4ssword!
     dbcp2:
       max-wait-millis: 30000
       validation-query: select 1
@@ -10,9 +18,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    open-in-view: false
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           lob:
             non_contextual_creation: true
@@ -26,5 +34,10 @@ spring:
   docker:
     compose:
       lifecycle-management: start-only
+
 springdoc:
-  pathsToMatch: /api/**
+  api-docs:
+    path: /api/
+
+server:
+  port: 5431
