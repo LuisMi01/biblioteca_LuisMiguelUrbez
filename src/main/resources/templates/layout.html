@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link th:href="@{src/main/resources/css/styles.css}" rel="stylesheet" />
     <script th:src="@{/js/bundle.js}" defer></script>
 </head>
 
@@ -14,7 +13,7 @@
     <div class="container">
         <nav class="navbar navbar-light navbar-expand-md">
             <a th:href="@{/}" class="navbar-brand">
-                <img th:src="@{/images/LA-Logo-libri-wiki.png}" th:alt="#{app.title}" width="30" height="30" class="d-inline-block align-top">
+                <img th:src="@{logos.png}" th:alt="#{app.title}" width="30" height="30" class="d-inline-block align-top">
                 <span class="ps-1">[[#{app.title}]]</span>
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggle"

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" lang="">
 <head>
-    <title>[[#{home.index.headline}]]</title>
+    <title>[[#{home.inicio.titulo.lector}]]</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -11,10 +11,14 @@
     <div class="col-md-4 mb-5">
         <h4 class="mb-3">[[#{home.index.exploreEntities}]]</h4>
         <div class="list-group">
-            <a th:href="@{/libros}" class="list-group-item list-group-item-action">[[#{libro.list.headline}]]</a>
-            <a th:href="@{/prestamos}" class="list-group-item list-group-item-action">[[#{prestamo.list.headline}]]</a>
-            <a th:href="@{/multass}" class="list-group-item list-group-item-action">[[#{multas.list.headline}]]</a>
-            <a th:href="@{/politicaPrestamos}" class="list-group-item list-group-item-action">[[#{politicaPrestamo.list.headline}]]</a>
+            <ul>
+                <li>
+            <a th:href="@{/libros}" class="list-group-item list-group-item-action">[[#{libro.list.lector}]]</a> </li>
+                <li>
+            <a th:href="@{/prestamos}" class="list-group-item list-group-item-action">[[#{prestamo.list.lector}]]</a></li>
+                <li><a th:href="@{/multass}" class="list-group-item list-group-item-action">[[#{multas.list.lector}]]</a></li>
+                <li><a th:href="@{/politicaPrestamos}" class="list-group-item list-group-item-action">[[#{politicaPrestamo.list.lector}]]</a></li>
+            </ul>
         </div>
     </div>
 </div>

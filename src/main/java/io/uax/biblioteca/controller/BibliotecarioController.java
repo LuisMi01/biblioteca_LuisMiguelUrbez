@@ -27,6 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/bibliotecarios")
 public class BibliotecarioController {
 
+    @GetMapping
+    public String mostrarBibliotecarios() {
+        return "home/IndexBibliotecario";
+    }
+    /*
     private final BibliotecarioService bibliotecarioService;
     private final UsuarioRepository usuarioRepository;
     private final BibliotecaRepository bibliotecaRepository;
@@ -108,5 +113,7 @@ public class BibliotecarioController {
         }
         return "redirect:/bibliotecarios";
     }
+    */
+
 
 }

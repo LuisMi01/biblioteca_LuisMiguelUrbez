@@ -11,7 +11,7 @@ public class MiConf implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/bibliotecarios").setViewName("forward:/");
-        registry.addViewController("/mostrarOpcionesLector").setViewName("forward:/");
+        registry.addViewController("/lectors").setViewName("forward:/");
         registry.addViewController("/admins").setViewName("forward:/");
     }
 }

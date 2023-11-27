@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/lectors")
 public class LectorController {
 
-    @GetMapping("/lectors")
+    @GetMapping
     public String mostrarLectores() {
         return "home/IndexLector";
     }
-
+/*
     private final LectorService lectorService;
     private final MultasRepository multasRepository;
     private final UsuarioRepository usuarioRepository;
@@ -59,7 +59,8 @@ public class LectorController {
                 .collect(CustomCollectors.toSortedMap(Prestamo::getId, Prestamo::getId)));
     }
 
-    @GetMapping("/lectors")
+
+    @GetMapping
     public String list(final Model model) {
         model.addAttribute("lectors", lectorService.findAll());
         return "lector/list";
@@ -111,5 +112,5 @@ public class LectorController {
         }
         return "redirect:/lectors";
     }
-
+*/
 }
