@@ -1,7 +1,7 @@
 package io.uax.biblioteca.service;
 
-import io.uax.biblioteca.biblioteca.domain.Biblioteca;
-import io.uax.biblioteca.bibliotecario.domain.Bibliotecario;
+import io.uax.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.domain.Bibliotecario;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.model.LibroDTO;

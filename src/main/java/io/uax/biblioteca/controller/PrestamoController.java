@@ -1,7 +1,7 @@
 package io.uax.biblioteca.controller;
 
-import io.uax.biblioteca.bibliotecario.domain.Bibliotecario;
-import io.uax.biblioteca.lector.domain.Lector;
+import io.uax.biblioteca.domain.Bibliotecario;
+import io.uax.biblioteca.domain.Lector;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.model.EstadoPrestamo;
 import io.uax.biblioteca.model.PrestamoDTO;

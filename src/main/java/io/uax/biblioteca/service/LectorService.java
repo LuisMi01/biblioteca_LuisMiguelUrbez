@@ -1,10 +1,10 @@
-package io.uax.biblioteca.lector.service;
+package io.uax.biblioteca.service;
 
-import io.uax.biblioteca.lector.domain.Lector;
+import io.uax.biblioteca.domain.Lector;
 import io.uax.biblioteca.domain.Multas;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.domain.Usuario;
-import io.uax.biblioteca.lector.model.LectorDTO;
+import io.uax.biblioteca.model.LectorDTO;
 import io.uax.biblioteca.repos.LectorRepository;
 import io.uax.biblioteca.repos.MultasRepository;
 import io.uax.biblioteca.repos.PrestamoRepository;

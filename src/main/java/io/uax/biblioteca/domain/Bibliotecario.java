@@ -1,6 +1,6 @@
-package io.uax.biblioteca.bibliotecario.domain;
+package io.uax.biblioteca.domain;
 
-import io.uax.biblioteca.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.domain.Biblioteca;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.domain.Usuario;

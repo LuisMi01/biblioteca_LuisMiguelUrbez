@@ -1,6 +1,6 @@
 package io.uax.biblioteca.controller;
 
-import io.uax.biblioteca.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.domain.Biblioteca;
 import io.uax.biblioteca.model.EstadoLibro;
 import io.uax.biblioteca.model.LibroDTO;
 import io.uax.biblioteca.repos.BibliotecaRepository;

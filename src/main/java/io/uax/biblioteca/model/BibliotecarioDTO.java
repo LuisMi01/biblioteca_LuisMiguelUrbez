@@ -1,4 +1,4 @@
-package io.uax.biblioteca.bibliotecario.model;
+package io.uax.biblioteca.model;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

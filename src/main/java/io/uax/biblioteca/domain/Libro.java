@@ -1,7 +1,5 @@
 package io.uax.biblioteca.domain;
 
-import io.uax.biblioteca.biblioteca.domain.Biblioteca;
-import io.uax.biblioteca.bibliotecario.domain.Bibliotecario;
 import io.uax.biblioteca.model.EstadoLibro;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

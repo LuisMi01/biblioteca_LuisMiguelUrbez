@@ -1,6 +1,6 @@
 package io.uax.biblioteca.repos;
 
-import io.uax.biblioteca.administrador.domain.Admin;
+import io.uax.biblioteca.domain.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

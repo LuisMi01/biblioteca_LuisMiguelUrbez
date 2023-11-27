@@ -1,6 +1,6 @@
 package io.uax.biblioteca.service;
 
-import io.uax.biblioteca.biblioteca.domain.Biblioteca;
+import io.uax.biblioteca.domain.Biblioteca;
 import io.uax.biblioteca.domain.PoliticaPrestamo;
 import io.uax.biblioteca.domain.Usuario;
 import io.uax.biblioteca.model.PoliticaPrestamoDTO;

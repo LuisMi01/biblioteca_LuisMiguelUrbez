@@ -1,14 +1,14 @@
-package io.uax.biblioteca.administrador.controller;
+package io.uax.biblioteca.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admins")
 public class AdministradorController {
-    //controller para el administrador
-
-    @GetMapping("/admin")
-    public String mostrarBibliotecarios() {
+    @GetMapping("/admins")
+    public String mostrarAdministradores() {
         return "home/IndexAdmin";
     }
 
