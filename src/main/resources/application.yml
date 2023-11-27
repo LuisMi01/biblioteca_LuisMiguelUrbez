@@ -8,9 +8,9 @@ spring:
     suffix: .html
     cache: false
   datasource:
-    url: jdbc:postgresql://biblioteca-postgres-1:5433/BasePrincipal
+    url: jdbc:postgresql://biblioteca-postgres-1:5433/BaseBiblioteca
     username: postgres
-    password: P4ssword!
+    password: 160821Daytona
     dbcp2:
       max-wait-millis: 30000
       validation-query: select 1

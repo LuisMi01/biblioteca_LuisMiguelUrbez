@@ -24,10 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("/lector")
+@RequestMapping("/lectors")
 public class LectorController {
 
-    @GetMapping("/mostrarOpcionesLector")
+    @GetMapping("/lectors")
     public String mostrarLectores() {
         return "home/IndexLector";
     }
