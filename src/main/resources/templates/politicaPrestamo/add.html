@@ -16,8 +16,6 @@
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='politicaPrestamo', field='maxDiasPrestamo', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='politicaPrestamo', field='maxRenovaciones', type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='politicaPrestamo', field='biblioteca', type='select')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='politicaPrestamo', field='politicaPrestamoUsuarioUsuarios', type='multiselect')}" />
                 <input type="submit" th:value="#{politicaPrestamo.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

@@ -8,6 +8,8 @@ import io.uax.biblioteca.repos.MultasRepository;
 import io.uax.biblioteca.repos.PrestamoRepository;
 import io.uax.biblioteca.repos.UsuarioRepository;
 import io.uax.biblioteca.service.LectorService;
+import io.uax.biblioteca.service.LibroService;
+import io.uax.biblioteca.service.PoliticaPrestamoService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.validation.Valid;
@@ -31,19 +33,23 @@ public class LectorController {
     public String mostrarLectores() {
         return "home/IndexLector";
     }
-/*
+
     private final LectorService lectorService;
+    private final LibroService libroService;
     private final MultasRepository multasRepository;
     private final UsuarioRepository usuarioRepository;
     private final PrestamoRepository prestamoRepository;
+    private final PoliticaPrestamoService politicasService;
 
     public LectorController(final LectorService lectorService,
-            final MultasRepository multasRepository, final UsuarioRepository usuarioRepository,
-            final PrestamoRepository prestamoRepository) {
+                            LibroService libroService, final MultasRepository multasRepository, final UsuarioRepository usuarioRepository,
+                            final PrestamoRepository prestamoRepository, PoliticaPrestamoService politicasService) {
         this.lectorService = lectorService;
+        this.libroService = libroService;
         this.multasRepository = multasRepository;
         this.usuarioRepository = usuarioRepository;
         this.prestamoRepository = prestamoRepository;
+        this.politicasService = politicasService;
     }
 
     @ModelAttribute
@@ -60,10 +66,22 @@ public class LectorController {
     }
 
 
-    @GetMapping
+    @GetMapping("/list")
     public String list(final Model model) {
         model.addAttribute("lectors", lectorService.findAll());
         return "lector/list";
+    }
+
+    @GetMapping("/librosLectores")
+    public String listLibros(final Model model) {
+           model.addAttribute("libroes", libroService.findAll());
+        return "lector/listLibrosLectors";
+    }
+
+    @GetMapping("/politicaPrestamos")
+    public String listPoliticas(final Model model) {
+        model.addAttribute("politicaPrestamoes", politicasService.findAll());
+        return "politicaPrestamo/listPoliticasLector";
     }
 
     @GetMapping("/add")
@@ -112,5 +130,4 @@ public class LectorController {
         }
         return "redirect:/lectors";
     }
-*/
 }

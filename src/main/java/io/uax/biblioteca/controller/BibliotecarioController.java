@@ -8,6 +8,7 @@ import io.uax.biblioteca.repos.BibliotecaRepository;
 import io.uax.biblioteca.repos.LibroRepository;
 import io.uax.biblioteca.repos.UsuarioRepository;
 import io.uax.biblioteca.service.BibliotecarioService;
+import io.uax.biblioteca.service.PoliticaPrestamoService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.validation.Valid;
@@ -31,20 +32,28 @@ public class BibliotecarioController {
     public String mostrarBibliotecarios() {
         return "home/IndexBibliotecario";
     }
-    /*
+
+    @GetMapping("/politicaPrestamos")
+    public String listPoliticas(final Model model) {
+        model.addAttribute("politicaPrestamoes", politicasService.findAll());
+        return "politicaPrestamo/listPoliticasBibliotecario";
+    }
+
     private final BibliotecarioService bibliotecarioService;
     private final UsuarioRepository usuarioRepository;
     private final BibliotecaRepository bibliotecaRepository;
     private final LibroRepository libroRepository;
 
+    private final PoliticaPrestamoService politicasService;
     public BibliotecarioController(final BibliotecarioService bibliotecarioService,
-            final UsuarioRepository usuarioRepository,
-            final BibliotecaRepository bibliotecaRepository,
-            final LibroRepository libroRepository) {
+                                   final UsuarioRepository usuarioRepository,
+                                   final BibliotecaRepository bibliotecaRepository,
+                                   final LibroRepository libroRepository, PoliticaPrestamoService politicasService) {
         this.bibliotecarioService = bibliotecarioService;
         this.usuarioRepository = usuarioRepository;
         this.bibliotecaRepository = bibliotecaRepository;
         this.libroRepository = libroRepository;
+        this.politicasService = politicasService;
     }
 
     @ModelAttribute
@@ -60,7 +69,7 @@ public class BibliotecarioController {
                 .collect(CustomCollectors.toSortedMap(Libro::getId, Libro::getTitulo)));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public String list(final Model model) {
         model.addAttribute("bibliotecarios", bibliotecarioService.findAll());
         return "bibliotecario/list";
@@ -113,7 +122,7 @@ public class BibliotecarioController {
         }
         return "redirect:/bibliotecarios";
     }
-    */
+
 
 
 }

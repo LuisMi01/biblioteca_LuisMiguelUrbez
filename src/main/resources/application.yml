@@ -8,7 +8,7 @@ spring:
     suffix: .html
     cache: false
   datasource:
-    url: jdbc:postgresql://biblioteca-postgres-1:5433/BaseBiblioteca
+    url: jdbc:postgresql://biblioteca-postgres-1:5432/BaseBiblioteca
     username: postgres
     password: 160821Daytona
     dbcp2:
@@ -38,6 +38,3 @@ spring:
 springdoc:
   api-docs:
     path: /api/
-
-server:
-  port: 5431

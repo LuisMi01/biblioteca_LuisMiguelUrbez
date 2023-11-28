@@ -66,7 +66,6 @@ public class LectorService {
     public void delete(final Integer id) {
         final Lector lector = lectorRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        // remove many-to-many relations at owning side
         multasRepository.findAllByMultasLectorLectors(lector)
                 .forEach(multas -> multas.getMultasLectorLectors().remove(lector));
         lectorRepository.delete(lector);

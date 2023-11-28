@@ -65,7 +65,6 @@ public class LibroService {
     public void delete(final Integer id) {
         final Libro libro = libroRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        // remove many-to-many relations at owning side
         bibliotecarioRepository.findAllByBibliotecarioLibroLibroes(libro)
                 .forEach(bibliotecario -> bibliotecario.getBibliotecarioLibroLibroes().remove(libro));
         prestamoRepository.findAllByPrestamoLibroLibroes(libro)

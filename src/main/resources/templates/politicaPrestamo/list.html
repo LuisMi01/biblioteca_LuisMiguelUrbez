@@ -1,48 +1,46 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout}">
-    <head>
-        <title>[[#{politicaPrestamo.list.headline}]]</title>
-    </head>
-    <body>
-        <div layout:fragment="content">
-            <div class="d-flex flex-wrap mb-4">
-                <h1 class="flex-grow-1">[[#{politicaPrestamo.list.headline}]]</h1>
-                <div>
-                    <a th:href="@{/politicaPrestamos/add}" class="btn btn-primary ms-2">[[#{politicaPrestamo.list.createNew}]]</a>
-                </div>
-            </div>
-            <div th:if="${politicaPrestamoes.empty}">[[#{politicaPrestamo.list.empty}]]</div>
-            <div th:if="${!politicaPrestamoes.empty}" class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col">[[#{politicaPrestamo.id.label}]]</th>
-                            <th scope="col">[[#{politicaPrestamo.maxDiasPrestamo.label}]]</th>
-                            <th scope="col">[[#{politicaPrestamo.maxRenovaciones.label}]]</th>
-                            <th scope="col">[[#{politicaPrestamo.biblioteca.label}]]</th>
-                            <th><!-- --></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="politicaPrestamo : ${politicaPrestamoes}">
-                            <td>[[${politicaPrestamo.id}]]</td>
-                            <td>[[${politicaPrestamo.maxDiasPrestamo}]]</td>
-                            <td>[[${politicaPrestamo.maxRenovaciones}]]</td>
-                            <td>[[${politicaPrestamo.biblioteca}]]</td>
-                            <td>
-                                <div class="float-end text-nowrap">
-                                    <a th:href="@{/politicaPrestamos/edit/{id}(id=${politicaPrestamo.id})}" class="btn btn-sm btn-secondary">[[#{politicaPrestamo.list.edit}]]</a>
-                                    <form th:action="@{/politicaPrestamos/delete/{id}(id=${politicaPrestamo.id})}"
-                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{politicaPrestamo.list.delete}]]</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      layout:decorate="~{layout}">
+<head>
+    <title>[[#{politicaPrestamo.list.headline}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 class="flex-grow-1">[[#{politicaPrestamo.list.headline}]]</h1>
+        <div>
+            <a th:href="@{/politicaPrestamos/add}" class="btn btn-primary ms-2">[[#{politicaPrestamo.list.createNew}]]</a>
         </div>
-    </body>
+    </div>
+    <div th:if="${politicaPrestamoes.empty}">[[#{politicaPrestamo.list.empty}]]</div>
+    <div th:if="${!politicaPrestamoes.empty}" class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+            <tr>
+                <th scope="col">[[#{politicaPrestamo.id.label}]]</th>
+                <th scope="col">[[#{politicaPrestamo.maxDiasPrestamo.label}]]</th>
+                <th scope="col">[[#{politicaPrestamo.maxRenovaciones.label}]]</th>
+                <th scope="col"></th> <!-- Columna vacía para los botones -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="politicaPrestamo : ${politicaPrestamoes}">
+                <td>[[${politicaPrestamo.id}]]</td>
+                <td>[[${politicaPrestamo.maxDiasPrestamo}]]</td>
+                <td>[[${politicaPrestamo.maxRenovaciones}]]</td>
+                <td>
+                    <div class="float-end text-nowrap">
+                        <a th:href="@{/politicaPrestamos/edit/{id}(id=${politicaPrestamo.id})}" class="btn btn-sm btn-secondary">[[#{politicaPrestamo.list.edit}]]</a>
+                        <form th:action="@{/politicaPrestamos/delete/{id}(id=${politicaPrestamo.id})}"
+                              th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-secondary">[[#{politicaPrestamo.list.delete}]]</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
 </html>

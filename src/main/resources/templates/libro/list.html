@@ -24,8 +24,7 @@
                             <th scope="col">[[#{libro.ejemplaresTotales.label}]]</th>
                             <th scope="col">[[#{libro.ejemplaresDisponibles.label}]]</th>
                             <th scope="col">[[#{libro.estado.label}]]</th>
-                            <th scope="col">[[#{libro.biblioteca.label}]]</th>
-                            <th><!-- --></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +36,7 @@
                             <td>[[${libro.ejemplaresTotales}]]</td>
                             <td>[[${libro.ejemplaresDisponibles}]]</td>
                             <td>[[${libro.estado}]]</td>
-                            <td>[[${libro.biblioteca}]]</td>
+
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/libros/edit/{id}(id=${libro.id})}" class="btn btn-sm btn-secondary">[[#{libro.list.edit}]]</a>

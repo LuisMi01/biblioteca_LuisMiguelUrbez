@@ -18,8 +18,7 @@
                 <div th:replace="~{fragments/forms::inputRow(object='lector', field='direccion')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='lector', field='telefono')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='lector', field='multas', type='select')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='lector', field='usuario', type='select')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='lector', field='lectorPrestamoPrestamoes', type='multiselect')}" />
+
                 <input type="submit" th:value="#{lector.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

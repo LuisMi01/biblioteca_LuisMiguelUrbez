@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>[[#{politicaPrestamo.list.headline}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="d-flex flex-wrap mb-4">
+    <h1 class="flex-grow-1">[[#{politicaPrestamo.list.headline}]]</h1>
+   <p>[[#{politicaPrestamo.list.headline.lector}]]</p>
+  </div>
+  <div th:if="${#lists.isEmpty(politicaPrestamoes)}">[[#{politicaPrestamo.list.empty}]]</div>
+  <div th:if="${not #lists.isEmpty(politicaPrestamoes)}" class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+      <tr>
+        <th scope="col">[[#{politicaPrestamo.maxDiasPrestamo.label}]]</th>
+        <th scope="col">[[#{politicaPrestamo.maxRenovaciones.label}]]</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="politicaPrestamo : ${politicaPrestamoes}">
+        <td>[[${politicaPrestamo.maxDiasPrestamo}]]</td>
+        <td>[[${politicaPrestamo.maxRenovaciones}]]</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

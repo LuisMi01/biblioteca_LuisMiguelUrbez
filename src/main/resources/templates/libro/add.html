@@ -20,7 +20,7 @@
                 <div th:replace="~{fragments/forms::inputRow(object='libro', field='ejemplaresTotales', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='libro', field='ejemplaresDisponibles', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='libro', field='estado', type='radio')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='libro', field='biblioteca', type='select')}" />
+
                 <input type="submit" th:value="#{libro.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>
