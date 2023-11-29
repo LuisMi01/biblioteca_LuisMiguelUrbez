@@ -35,9 +35,13 @@
                             <td>[[${prestamo.fechaDevolucion}]]</td>
                             <td>[[${prestamo.renovado}]]</td>
                             <td>[[${prestamo.estadoPreestamo}]]</td>
-                            <td>[[${prestamo.libro}]]</td>
-                            <td>[[${prestamo.lector}]]</td>
-                            <td>[[${prestamo.bibliotecario}]]</td>
+
+                            <td th:text="${libroNombres[prestamo.libro]}"></td>
+                            <td th:text="${lectorNombres[prestamo.lector]}"></td>
+                            <td th:text="${bibliotecarioNombres[prestamo.bibliotecario]}"></td>
+                            <!--<td>[[${prestamo.libro}]]</td>-->
+                            <!--<td>[[${prestamo.lector}]]</td>
+                            <td>[[${prestamo.bibliotecario}]]</td>-->
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/prestamos/edit/{id}(id=${prestamo.id})}" class="btn btn-sm btn-secondary">[[#{prestamo.list.edit}]]</a>

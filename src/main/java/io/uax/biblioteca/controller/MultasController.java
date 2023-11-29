@@ -52,6 +52,12 @@ public class MultasController {
         return "multas/list";
     }
 
+    @GetMapping("/multasLector")
+    public String multasLector(final Model model) {
+        model.addAttribute("multases", multasService.findAll());
+        return "lector/listMultasLector";
+    }
+
     @GetMapping("/add")
     public String add(@ModelAttribute("multas") final MultasDTO multasDTO) {
         return "multas/add";

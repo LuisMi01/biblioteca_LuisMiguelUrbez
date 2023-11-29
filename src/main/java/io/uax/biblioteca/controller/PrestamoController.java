@@ -3,11 +3,13 @@ package io.uax.biblioteca.controller;
 import io.uax.biblioteca.domain.Bibliotecario;
 import io.uax.biblioteca.domain.Lector;
 import io.uax.biblioteca.domain.Libro;
-import io.uax.biblioteca.model.EstadoPrestamo;
-import io.uax.biblioteca.model.PrestamoDTO;
+import io.uax.biblioteca.model.*;
 import io.uax.biblioteca.repos.BibliotecarioRepository;
 import io.uax.biblioteca.repos.LectorRepository;
 import io.uax.biblioteca.repos.LibroRepository;
+import io.uax.biblioteca.service.BibliotecarioService;
+import io.uax.biblioteca.service.LectorService;
+import io.uax.biblioteca.service.LibroService;
 import io.uax.biblioteca.service.PrestamoService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -29,14 +34,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PrestamoController {
 
     private final PrestamoService prestamoService;
+    private final LibroService libroService;
+    private final LectorService lectorService;
+    private final BibliotecarioService bibliotecarioService;
+
     private final LibroRepository libroRepository;
     private final LectorRepository lectorRepository;
     private final BibliotecarioRepository bibliotecarioRepository;
 
     public PrestamoController(final PrestamoService prestamoService,
-            final LibroRepository libroRepository, final LectorRepository lectorRepository,
-            final BibliotecarioRepository bibliotecarioRepository) {
+                              LibroService libroService, LectorService lectorService, BibliotecarioService bibliotecarioService, final LibroRepository libroRepository, final LectorRepository lectorRepository,
+                              final BibliotecarioRepository bibliotecarioRepository) {
         this.prestamoService = prestamoService;
+        this.libroService = libroService;
+        this.lectorService = lectorService;
+        this.bibliotecarioService = bibliotecarioService;
         this.libroRepository = libroRepository;
         this.lectorRepository = lectorRepository;
         this.bibliotecarioRepository = bibliotecarioRepository;
@@ -61,7 +73,34 @@ public class PrestamoController {
 
     @GetMapping
     public String list(final Model model) {
+
+        List<PrestamoDTO> prestamos = prestamoService.findAll();
         model.addAttribute("prestamoes", prestamoService.findAll());
+
+        // Obtener nombres de libros, lectores y bibliotecarios
+        List<LibroDTO> libros = libroService.findAll();
+        model.addAttribute("libros", libros);
+        Map<Integer, String> libroNombres = libros
+                .stream()
+                .collect(Collectors.toMap(LibroDTO::getId, LibroDTO::getTitulo));
+
+        List<LectorDTO> lectores = lectorService.findAll();
+        model.addAttribute("lectores", lectores);
+        Map<Integer, String> lectorNombres = lectores
+                .stream()
+                .collect(Collectors.toMap(LectorDTO::getId, LectorDTO::getNombre));
+
+        List<BibliotecarioDTO> bibliotecarios = bibliotecarioService.findAll();
+        model.addAttribute("bibliotecarios", bibliotecarios);
+        Map<Integer, String> bibliotecarioNombres = bibliotecarios
+                .stream()
+                .collect(Collectors.toMap(BibliotecarioDTO::getId, BibliotecarioDTO::getNombre));
+
+        model.addAttribute("libroNombres", libroNombres);
+        model.addAttribute("lectorNombres", lectorNombres);
+        model.addAttribute("bibliotecarioNombres", bibliotecarioNombres);
+
+
         return "prestamo/list";
     }
 
