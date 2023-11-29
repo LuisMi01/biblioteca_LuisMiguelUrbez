@@ -24,7 +24,7 @@
             <tr th:each="multas : ${multases}">
                 <td>[[${multas.id}]]</td>
                 <td>[[${multas.total}]]</td>
-                <td th:text="${lectorMultadoMap[multas.nombreLector]}"></td>
+                <td>[[${multas.prestamo}]]</td>
                 <td>
                     <div class="float-end text-nowrap">
                         <form th:action="@{/multass/delete/{id}(id=${multas.id})}"

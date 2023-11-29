@@ -18,9 +18,19 @@ public class MultasDTO {
     @Schema(type = "string", example = "32.08")
     private BigDecimal total;
 
-    private Integer prestamo;
+    private String prestamo;
 
     private String nombreLector;
+
+
+
+    public String getNombreLector() {
+        return nombreLector;
+    }
+
+    public void setNombreLector(String nombreLector) {
+        this.nombreLector = nombreLector;
+    }
 
     private List<Integer> multasLectorLectors;
 
@@ -36,26 +46,17 @@ public class MultasDTO {
         return total;
     }
 
-    public String getNombreLector() {
-        return nombreLector;
-    }
-
-    public void setNombreLector(final String nombreLector) {
-        this.nombreLector = nombreLector;
-    }
-
     public void setTotal(final BigDecimal total) {
         this.total = total;
     }
 
-    public Integer getPrestamo() {
+    public String getPrestamo() {
         return prestamo;
     }
 
-    public void setPrestamo(final Integer prestamo) {
+    public void setPrestamo(final String prestamo) {
         this.prestamo = prestamo;
     }
-
     public List<Integer> getMultasLectorLectors() {
         return multasLectorLectors;
     }
@@ -63,5 +64,6 @@ public class MultasDTO {
     public void setMultasLectorLectors(final List<Integer> multasLectorLectors) {
         this.multasLectorLectors = multasLectorLectors;
     }
+
 
 }

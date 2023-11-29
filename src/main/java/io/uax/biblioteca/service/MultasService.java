@@ -66,8 +66,16 @@ public class MultasService {
     private MultasDTO mapToDTO(final Multas multas, final MultasDTO multasDTO) {
         multasDTO.setId(multas.getId());
         multasDTO.setTotal(multas.getTotal());
-        multasDTO.setPrestamo(multas.getPrestamo() == null ? null : multas.getPrestamo().getId());
-        multasDTO.setNombreLector(multas.getNombreLector());
+
+        // Obtener el lector asociado al préstamo
+        Lector lectorDelPrestamo = null;
+        if (multas.getPrestamo() != null) {
+            lectorDelPrestamo = multas.getPrestamo().getLector();
+        }
+
+        // Configurar el nombre del lector en el DTO
+        multasDTO.setNombreLector(lectorDelPrestamo != null ? lectorDelPrestamo.getNombre() : null);
+
         multasDTO.setMultasLectorLectors(multas.getMultasLectorLectors().stream()
                 .map(lector -> lector.getId())
                 .toList());
@@ -76,12 +84,14 @@ public class MultasService {
 
     private Multas mapToEntity(final MultasDTO multasDTO, final Multas multas) {
         multas.setTotal(multasDTO.getTotal());
-        final Prestamo prestamo = multasDTO.getPrestamo() == null ? null : prestamoRepository.findById(multasDTO.getPrestamo())
+        Integer prestamoId = multasDTO.getPrestamo() == null ? null : Integer.parseInt(multasDTO.getPrestamo());
+
+        final Prestamo prestamo = prestamoId == null ? null : prestamoRepository.findById(prestamoId)
                 .orElseThrow(() -> new NotFoundException("prestamo not found"));
+
         multas.setPrestamo(prestamo);
         final List<Lector> multasLectorLectors = lectorRepository.findAllById(
                 multasDTO.getMultasLectorLectors() == null ? Collections.emptyList() : multasDTO.getMultasLectorLectors());
-                multasDTO.setNombreLector(multas.getNombreLector());
         if (multasLectorLectors.size() != (multasDTO.getMultasLectorLectors() == null ? 0 : multasDTO.getMultasLectorLectors().size())) {
             throw new NotFoundException("one of multasLectorLectors not found");
         }

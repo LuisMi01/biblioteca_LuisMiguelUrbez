@@ -15,7 +15,6 @@
     <div th:replace="~{fragments/forms::globalErrors('multas')}" />
     <form th:action="${requestUri}" method="post">
         <div th:replace="~{fragments/forms::inputRow(object='multas', field='total')}" />
-        <div th:replace="~{fragments/forms::inputRow(object='multas', field='nombreLector')}" />
         <div th:replace="~{fragments/forms::inputRow(object='multas', field='prestamo', type='select')}" />
         <input type="submit" th:value="#{multas.add.headline}" class="btn btn-primary mt-4" />
     </form>

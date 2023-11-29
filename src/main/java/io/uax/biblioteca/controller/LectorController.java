@@ -97,7 +97,7 @@ public class LectorController {
         }
         lectorService.create(lectorDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("lector.create.success"));
-        return "redirect:/lectors";
+        return "redirect:/lectors/list";
     }
 
     @GetMapping("/edit/{id}")
@@ -115,7 +115,7 @@ public class LectorController {
         }
         lectorService.update(id, lectorDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("lector.update.success"));
-        return "redirect:/lectors";
+        return "redirect:/lectors/list";
     }
 
     @PostMapping("/delete/{id}")
@@ -128,6 +128,6 @@ public class LectorController {
             lectorService.delete(id);
             redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("lector.delete.success"));
         }
-        return "redirect:/lectors";
+        return "redirect:/lectors/list";
     }
 }

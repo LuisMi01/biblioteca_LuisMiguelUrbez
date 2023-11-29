@@ -4,10 +4,12 @@ import io.uax.biblioteca.domain.Lector;
 import io.uax.biblioteca.domain.Prestamo;
 import io.uax.biblioteca.model.LectorDTO;
 import io.uax.biblioteca.model.MultasDTO;
+import io.uax.biblioteca.model.PrestamoDTO;
 import io.uax.biblioteca.repos.LectorRepository;
 import io.uax.biblioteca.repos.PrestamoRepository;
 import io.uax.biblioteca.service.LectorService;
 import io.uax.biblioteca.service.MultasService;
+import io.uax.biblioteca.service.PrestamoService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.validation.Valid;
@@ -34,14 +36,15 @@ public class MultasController {
     private final MultasService multasService;
     private final PrestamoRepository prestamoRepository;
     private final LectorRepository lectorRepository;
-
+    private final PrestamoService prestamoService;
     private final LectorService lectorService;
 
     public MultasController(final MultasService multasService,
-                            final PrestamoRepository prestamoRepository, final LectorRepository lectorRepository, LectorService lectorService) {
+                            final PrestamoRepository prestamoRepository, final LectorRepository lectorRepository, PrestamoService prestamoService, LectorService lectorService) {
         this.multasService = multasService;
         this.prestamoRepository = prestamoRepository;
         this.lectorRepository = lectorRepository;
+        this.prestamoService = prestamoService;
         this.lectorService = lectorService;
     }
 
@@ -66,13 +69,6 @@ public class MultasController {
         List<MultasDTO> multas = multasService.findAll();
         model.addAttribute("multases", multasService.findAll());
 
-        List<LectorDTO> lectorMultado = lectorService.findAll();
-        model.addAttribute("lectores", lectorMultado);
-        Map<Integer, String> lectorMultadoMap = lectorMultado.stream()
-                .collect(Collectors.toMap(LectorDTO::getId, LectorDTO::getNombre));
-
-        model.addAttribute("lectorMultadoMap", lectorMultadoMap);
-
         return "lector/listMultasLector";
     }
 
@@ -80,17 +76,8 @@ public class MultasController {
     public String multasBibliotecario(final Model model) {
         List<MultasDTO> multas = multasService.findAll();
         model.addAttribute("multases", multasService.findAll());
-
-        List<LectorDTO> lectorMultado = lectorService.findAll();
-        model.addAttribute("lectores", lectorMultado);
-        Map<Integer, String> lectorMultadoMap = lectorMultado.stream()
-                .collect(Collectors.toMap(LectorDTO::getId, LectorDTO::getNombre));
-
-        model.addAttribute("lectorMultadoMap", lectorMultadoMap);
-
         return "multas/list";
     }
-
     @GetMapping("/add")
     public String add(@ModelAttribute("multas") final MultasDTO multasDTO) {
         return "multas/add";

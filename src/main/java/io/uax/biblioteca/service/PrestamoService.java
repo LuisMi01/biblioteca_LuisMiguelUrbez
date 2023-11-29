@@ -71,7 +71,6 @@ public class PrestamoService {
     public void delete(final Integer id) {
         final Prestamo prestamo = prestamoRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        // remove many-to-many relations at owning side
         lectorRepository.findAllByLectorPrestamoPrestamoes(prestamo)
                 .forEach(lector -> lector.getLectorPrestamoPrestamoes().remove(prestamo));
         prestamoRepository.delete(prestamo);
