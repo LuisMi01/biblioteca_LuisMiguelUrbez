@@ -75,23 +75,6 @@ public class BibliotecarioController {
         return "bibliotecario/list";
     }
 
-    @GetMapping("/add")
-    public String add(@ModelAttribute("bibliotecario") final BibliotecarioDTO bibliotecarioDTO) {
-        return "bibliotecario/add";
-    }
-
-    @PostMapping("/add")
-    public String add(
-            @ModelAttribute("bibliotecario") @Valid final BibliotecarioDTO bibliotecarioDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "bibliotecario/add";
-        }
-        bibliotecarioService.create(bibliotecarioDTO);
-        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("bibliotecario.create.success"));
-        return "redirect:/bibliotecarios";
-    }
-
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Integer id, final Model model) {
         model.addAttribute("bibliotecario", bibliotecarioService.get(id));
@@ -107,7 +90,7 @@ public class BibliotecarioController {
         }
         bibliotecarioService.update(id, bibliotecarioDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("bibliotecario.update.success"));
-        return "redirect:/bibliotecarios";
+        return "redirect:/admins/listarBibliotecarios";
     }
 
     @PostMapping("/delete/{id}")
@@ -120,7 +103,7 @@ public class BibliotecarioController {
             bibliotecarioService.delete(id);
             redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("bibliotecario.delete.success"));
         }
-        return "redirect:/bibliotecarios";
+        return "redirect:/admins/listarBibliotecarios";
     }
 
 

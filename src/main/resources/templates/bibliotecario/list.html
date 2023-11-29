@@ -9,7 +9,7 @@
             <div class="d-flex flex-wrap mb-4">
                 <h1 class="flex-grow-1">[[#{bibliotecario.list.headline}]]</h1>
                 <div>
-                    <a th:href="@{/bibliotecarios/add}" class="btn btn-primary ms-2">[[#{bibliotecario.list.createNew}]]</a>
+                    <a th:href="@{listarBibliotecarios/contratarBibliotecarios}" class="btn btn-primary ms-2">[[#{bibliotecario.list.createNew}]]</a>
                 </div>
             </div>
             <div th:if="${bibliotecarios.empty}">[[#{bibliotecario.list.empty}]]</div>
