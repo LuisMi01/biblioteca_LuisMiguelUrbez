@@ -9,7 +9,7 @@
             <div class="d-flex flex-wrap mb-4">
                 <h1 class="flex-grow-1">[[#{lector.add.headline}]]</h1>
                 <div>
-                    <a th:href="@{/lectors}" class="btn btn-secondary">[[#{lector.add.back}]]</a>
+                    <a th:href="@{/lectors/list}" class="btn btn-secondary">[[#{lector.add.back}]]</a>
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('lector')}" />
