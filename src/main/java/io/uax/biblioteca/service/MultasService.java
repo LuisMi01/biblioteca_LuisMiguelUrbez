@@ -11,6 +11,7 @@ import io.uax.biblioteca.util.NotFoundException;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
@@ -66,6 +67,7 @@ public class MultasService {
         multasDTO.setId(multas.getId());
         multasDTO.setTotal(multas.getTotal());
         multasDTO.setPrestamo(multas.getPrestamo() == null ? null : multas.getPrestamo().getId());
+        multasDTO.setNombreLector(multas.getNombreLector());
         multasDTO.setMultasLectorLectors(multas.getMultasLectorLectors().stream()
                 .map(lector -> lector.getId())
                 .toList());
@@ -79,10 +81,13 @@ public class MultasService {
         multas.setPrestamo(prestamo);
         final List<Lector> multasLectorLectors = lectorRepository.findAllById(
                 multasDTO.getMultasLectorLectors() == null ? Collections.emptyList() : multasDTO.getMultasLectorLectors());
+                multasDTO.setNombreLector(multas.getNombreLector());
         if (multasLectorLectors.size() != (multasDTO.getMultasLectorLectors() == null ? 0 : multasDTO.getMultasLectorLectors().size())) {
             throw new NotFoundException("one of multasLectorLectors not found");
         }
-        multas.setMultasLectorLectors(multasLectorLectors.stream().collect(Collectors.toSet()));
+
+        multas.setMultasLectorLectors(new HashSet<>(multasLectorLectors));
+
         return multas;
     }
 

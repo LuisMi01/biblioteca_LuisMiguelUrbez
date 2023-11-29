@@ -46,6 +46,13 @@ public class Multas {
     private Set<Lector> multasLectors;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lector_id")
+    private Lector lector;
+
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'lector_multa_name'")
+    private String nombreLector;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prestamo_id")
     private Prestamo prestamo;
 
@@ -68,6 +75,13 @@ public class Multas {
     public Integer getId() {
         return id;
     }
+    public Lector getLector() {
+        return lector;
+    }
+
+    public void setLector(final Lector lector) {
+        this.lector = lector;
+    }
 
     public void setId(final Integer id) {
         this.id = id;
@@ -80,6 +94,15 @@ public class Multas {
     public void setTotal(final BigDecimal total) {
         this.total = total;
     }
+
+    public String getNombreLector() {
+        return nombreLector;
+    }
+
+    public void setNombreLector(final String nombreLector) {
+        this.nombreLector = nombreLector;
+    }
+
 
     public Set<Lector> getMultasLectors() {
         return multasLectors;

@@ -19,7 +19,7 @@
                         <tr>
                             <th scope="col">[[#{multas.id.label}]]</th>
                             <th scope="col">[[#{multas.total.label}]]</th>
-                            <th scope="col">[[#{multas.prestamo.label}]]</th>
+                            <th scope="col">[[#{multas.prestamo.label.lector}]]</th>
                             <th><!-- --></th>
                         </tr>
                     </thead>
@@ -27,7 +27,7 @@
                         <tr th:each="multas : ${multases}">
                             <td>[[${multas.id}]]</td>
                             <td>[[${multas.total}]]</td>
-                            <td>[[${multas.prestamo}]]</td>
+                            <td th:text="${lectorMultadoMap[multas.nombreLector]}"></td>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/multass/edit/{id}(id=${multas.id})}" class="btn btn-sm btn-secondary">[[#{multas.list.edit}]]</a>

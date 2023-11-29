@@ -20,6 +20,8 @@ public class MultasDTO {
 
     private Integer prestamo;
 
+    private String nombreLector;
+
     private List<Integer> multasLectorLectors;
 
     public Integer getId() {
@@ -32,6 +34,14 @@ public class MultasDTO {
 
     public BigDecimal getTotal() {
         return total;
+    }
+
+    public String getNombreLector() {
+        return nombreLector;
+    }
+
+    public void setNombreLector(final String nombreLector) {
+        this.nombreLector = nombreLector;
     }
 
     public void setTotal(final BigDecimal total) {

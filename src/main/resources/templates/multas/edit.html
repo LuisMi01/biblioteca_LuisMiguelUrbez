@@ -16,6 +16,7 @@
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='multas', field='id', disabled=true, type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='multas', field='total')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='multas', field='nombreLector')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='multas', field='prestamo', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='multas', field='multasLectorLectors', type='multiselect')}" />
                 <input type="submit" th:value="#{multas.edit.headline}" class="btn btn-primary mt-4" />

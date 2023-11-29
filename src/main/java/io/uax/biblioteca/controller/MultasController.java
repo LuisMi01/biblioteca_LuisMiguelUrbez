@@ -2,9 +2,11 @@ package io.uax.biblioteca.controller;
 
 import io.uax.biblioteca.domain.Lector;
 import io.uax.biblioteca.domain.Prestamo;
+import io.uax.biblioteca.model.LectorDTO;
 import io.uax.biblioteca.model.MultasDTO;
 import io.uax.biblioteca.repos.LectorRepository;
 import io.uax.biblioteca.repos.PrestamoRepository;
+import io.uax.biblioteca.service.LectorService;
 import io.uax.biblioteca.service.MultasService;
 import io.uax.biblioteca.util.CustomCollectors;
 import io.uax.biblioteca.util.WebUtils;
@@ -20,6 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/multass")
@@ -29,11 +35,14 @@ public class MultasController {
     private final PrestamoRepository prestamoRepository;
     private final LectorRepository lectorRepository;
 
+    private final LectorService lectorService;
+
     public MultasController(final MultasService multasService,
-            final PrestamoRepository prestamoRepository, final LectorRepository lectorRepository) {
+                            final PrestamoRepository prestamoRepository, final LectorRepository lectorRepository, LectorService lectorService) {
         this.multasService = multasService;
         this.prestamoRepository = prestamoRepository;
         this.lectorRepository = lectorRepository;
+        this.lectorService = lectorService;
     }
 
     @ModelAttribute
@@ -54,8 +63,32 @@ public class MultasController {
 
     @GetMapping("/multasLector")
     public String multasLector(final Model model) {
+        List<MultasDTO> multas = multasService.findAll();
         model.addAttribute("multases", multasService.findAll());
+
+        List<LectorDTO> lectorMultado = lectorService.findAll();
+        model.addAttribute("lectores", lectorMultado);
+        Map<Integer, String> lectorMultadoMap = lectorMultado.stream()
+                .collect(Collectors.toMap(LectorDTO::getId, LectorDTO::getNombre));
+
+        model.addAttribute("lectorMultadoMap", lectorMultadoMap);
+
         return "lector/listMultasLector";
+    }
+
+    @GetMapping("/multasBibliotecario")
+    public String multasBibliotecario(final Model model) {
+        List<MultasDTO> multas = multasService.findAll();
+        model.addAttribute("multases", multasService.findAll());
+
+        List<LectorDTO> lectorMultado = lectorService.findAll();
+        model.addAttribute("lectores", lectorMultado);
+        Map<Integer, String> lectorMultadoMap = lectorMultado.stream()
+                .collect(Collectors.toMap(LectorDTO::getId, LectorDTO::getNombre));
+
+        model.addAttribute("lectorMultadoMap", lectorMultadoMap);
+
+        return "multas/list";
     }
 
     @GetMapping("/add")
