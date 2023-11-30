@@ -69,7 +69,6 @@ public class PrestamoService {
         libroPrestado.setEjemplaresDisponibles(libroPrestado.getEjemplaresDisponibles() - 1);
         libroService.update(libroPrestado.getId(), libroPrestado);
 
-
         return prestamoRepository.save(prestamo).getId();
 
     }
@@ -97,12 +96,6 @@ public class PrestamoService {
         lectorRepository.findAllByLectorPrestamoPrestamoes(prestamo)
                 .forEach(lector -> lector.getLectorPrestamoPrestamoes().remove(prestamo));
         prestamoRepository.delete(prestamo);
-
-        /*// Aumentar la cantidad de libros disponibles del libro devuelto
-        PrestamoDTO prestamoDevuelto = get(id);
-        LibroDTO libroDevuelto = libroService.getById(prestamoDevuelto.getLibro());
-        libroDevuelto.setEjemplaresDisponibles(libroDevuelto.getEjemplaresDisponibles() + 1);
-        libroService.update(libroDevuelto.getId(), libroDevuelto);*/
     }
 
     private PrestamoDTO mapToDTO(final Prestamo prestamo, final PrestamoDTO prestamoDTO) {

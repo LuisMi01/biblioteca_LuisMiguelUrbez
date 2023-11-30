@@ -27,8 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.ui.Model;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 @RequestMapping("/prestamos")
@@ -111,7 +111,7 @@ public class PrestamoController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute("prestamo") @Valid final PrestamoDTO prestamoDTO,
+    public String add(@ModelAttribute("prestamo") @Valid PrestamoDTO prestamoDTO,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             return "prestamo/add";
@@ -124,6 +124,20 @@ public class PrestamoController {
             model.addAttribute("error", "No puedes prestar un libro roto.");
             return "prestamo/add";
         }
+
+
+        // Verificar la disponibilidad de libros antes de realizar el préstamo
+        List<LibroDTO> librosDisponibles = libroService.getLibrosDisponibles();
+        if (librosDisponibles.isEmpty()) {
+            model.addAttribute("error_disponibilidad", "No hay libros disponibles en este momento.");
+            return "prestamo/add";
+        }
+
+        // Agregar los libros disponibles al modelo
+        model.addAttribute("libros", librosDisponibles);
+        model.addAttribute("prestamo", prestamoDTO);
+
+
 
         prestamoService.create(prestamoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("prestamo.create.success"));
@@ -141,7 +155,9 @@ public class PrestamoController {
         return "prestamo/edit";
     }
 
-    @PostMapping("/edit/{id}")
+
+
+   @PostMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Integer id,
             @ModelAttribute("prestamo") @Valid PrestamoDTO prestamoDTO,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes, final Model model) {
@@ -157,22 +173,55 @@ public class PrestamoController {
             return "prestamo/edit";
         }
 
-        prestamoService.update(id, prestamoDTO);
+
+       // Obtener el préstamo existente u inicializar uno nuevo
+        prestamoDTO = (id != null) ? prestamoService.getById(id) : new PrestamoDTO();
+
+        // Verificar la disponibilidad de libros antes de mostrar la vista
+        List<LibroDTO> librosDisponibles = libroService.getLibrosDisponibles();
+       if (librosDisponibles.isEmpty()) {
+           model.addAttribute("error_disponibilidad", "No hay libros disponibles en este momento.");
+           return "redirect:/prestamo/edit/{id}?error=disponibilidad";
+       }
+
+        // Agregar los libros disponibles al modelo
+        model.addAttribute("libros", librosDisponibles);
+        model.addAttribute("prestamo", prestamoDTO);
+
+       prestamoService.update(id, prestamoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("prestamo.update.success"));
         return "redirect:/prestamos";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable(name = "id") final Integer id,
-            final RedirectAttributes redirectAttributes) {
-        final String referencedWarning = prestamoService.getReferencedWarning(id);
-        if (referencedWarning != null) {
-            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, referencedWarning);
-        } else {
-            prestamoService.delete(id);
-            redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("prestamo.delete.success"));
+                         final RedirectAttributes redirectAttributes) {
+
+        // Obtener el préstamo a eliminar antes de borrarlo
+        PrestamoDTO prestamoDTO = prestamoService.getById(id);
+
+        // Verificar que el préstamo existe
+        if (prestamoDTO == null) {
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, WebUtils.getMessage("prestamo.notfound"));
+            return "redirect:/prestamos";
         }
+
+        // Obtener el libro asociado al préstamo
+        LibroDTO libroPrestado = libroService.getById(prestamoDTO.getLibro());
+
+        // Incrementar la cantidad disponible del libro
+        if (libroPrestado != null) {
+            libroPrestado.setEjemplaresDisponibles(libroPrestado.getEjemplaresDisponibles() + 1);
+            libroService.update(libroPrestado.getId(), libroPrestado);
+        }
+
+        // Eliminar el préstamo después de obtener la información necesaria
+        prestamoService.delete(id);
+
+        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("prestamo.delete.success"));
         return "redirect:/prestamos";
     }
+
+
 
 }

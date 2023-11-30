@@ -1,21 +1,30 @@
 package io.uax.biblioteca.service;
 
+import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.TransaccionLibro;
+import io.uax.biblioteca.domain.Usuario;
+import io.uax.biblioteca.model.EstadoLibro;
 import io.uax.biblioteca.model.TransaccionLibroDTO;
+import io.uax.biblioteca.repos.LibroRepository;
 import io.uax.biblioteca.repos.TransaccionLibroRepository;
 import io.uax.biblioteca.util.NotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Service
 public class TransaccionLibroService {
 
     private final TransaccionLibroRepository transaccionLibroRepository;
+    private final LibroRepository libroRepository;
 
-    public TransaccionLibroService(final TransaccionLibroRepository transaccionLibroRepository) {
+    public TransaccionLibroService(TransaccionLibroRepository transaccionLibroRepository, LibroRepository libroRepository) {
         this.transaccionLibroRepository = transaccionLibroRepository;
+        this.libroRepository = libroRepository;
     }
 
     public List<TransaccionLibroDTO> findAll() {
@@ -49,20 +58,34 @@ public class TransaccionLibroService {
     }
 
     private TransaccionLibroDTO mapToDTO(final TransaccionLibro transaccionLibro,
-            final TransaccionLibroDTO transaccionLibroDTO) {
+                                         final TransaccionLibroDTO transaccionLibroDTO) {
         transaccionLibroDTO.setId(transaccionLibro.getId());
-        transaccionLibroDTO.setFechaTransaccion(transaccionLibro.getFechaTransaccion());
-        transaccionLibroDTO.setAccion(transaccionLibro.getAccion());
-        transaccionLibroDTO.setDetalles(transaccionLibro.getDetalles());
+        transaccionLibroDTO.setLibro(transaccionLibro.getLibro().getAutor());
+        transaccionLibroDTO.setNombreLibro(transaccionLibro.getLibro().getTitulo());
+        transaccionLibroDTO.setEstado(transaccionLibro.getEstado());
         return transaccionLibroDTO;
     }
 
+
+
     private TransaccionLibro mapToEntity(final TransaccionLibroDTO transaccionLibroDTO,
             final TransaccionLibro transaccionLibro) {
-        transaccionLibro.setFechaTransaccion(transaccionLibroDTO.getFechaTransaccion());
-        transaccionLibro.setAccion(transaccionLibroDTO.getAccion());
-        transaccionLibro.setDetalles(transaccionLibroDTO.getDetalles());
+        transaccionLibro.setLibro(libroRepository.findByTitulo(transaccionLibroDTO.getLibro()));
+        transaccionLibro.setEstado(transaccionLibroDTO.getEstado());
+        transaccionLibro.setId(transaccionLibroDTO.getId());
         return transaccionLibro;
+    }
+
+    public List<Libro> getLibrosRotos() {
+        return transaccionLibroRepository.findByEstado(EstadoLibro.ROTO).stream()
+                .map(TransaccionLibro::getLibro)
+                .toList();
+
+    }
+
+    public void arreglarLibro() {
+        // Implementar lógica para cambiar el estado del libro a NUEVO
+        // Puedes obtener el TransaccionLibro por su ID, actualizar el estado y guardar.
     }
 
 }

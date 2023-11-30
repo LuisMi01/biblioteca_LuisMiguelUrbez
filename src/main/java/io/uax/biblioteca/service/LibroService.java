@@ -14,6 +14,7 @@ import io.uax.biblioteca.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,13 @@ public class LibroService {
         return optionalLibro.orElse(null);
     }
 
+    public List<LibroDTO> getLibrosDisponibles() {
+        List<Libro> libros = libroRepository.findAll();
+        return libros.stream()
+                .filter(libro -> libro.getEjemplaresDisponibles() > 0)
+                .map(libro -> mapToDTO(libro, new LibroDTO()))
+                .collect(Collectors.toList());
+    }
 
 
     public List<LibroDTO> findAll() {

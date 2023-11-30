@@ -1,5 +1,6 @@
 package io.uax.biblioteca.controller;
 
+import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.model.TransaccionLibroDTO;
 import io.uax.biblioteca.service.TransaccionLibroService;
 import io.uax.biblioteca.util.WebUtils;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/transaccionLibros")
@@ -25,6 +28,18 @@ public class TransaccionLibroController {
         this.transaccionLibroService = transaccionLibroService;
     }
 
+    @GetMapping("/librosRotos")
+    public String getLibrosRotos(Model model) {
+        List<Libro> librosRotos = transaccionLibroService.getLibrosRotos();
+        model.addAttribute("librosRotos", librosRotos);
+        return "transaccionLibro/librosRotos";
+    }
+
+    @PostMapping("/arreglarLibros")
+    public String arreglarLibros() {
+        transaccionLibroService.arreglarLibro();
+        return "redirect:/librosRotos";
+    }
     @GetMapping
     public String list(final Model model) {
         model.addAttribute("transaccionLibroes", transaccionLibroService.findAll());

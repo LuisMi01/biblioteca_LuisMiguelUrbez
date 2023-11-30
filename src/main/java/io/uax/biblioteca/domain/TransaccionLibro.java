@@ -1,12 +1,8 @@
 package io.uax.biblioteca.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import io.uax.biblioteca.model.EstadoLibro;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,14 +28,17 @@ public class TransaccionLibro {
     )
     private Integer id;
 
-    @Column(nullable = false)
-    private LocalDate fechaTransaccion;
+    @ManyToOne
+    @JoinColumn(name = "libro_id")
+    private Libro libro;
+
 
     @Column(nullable = false)
-    private String accion;
+    private String nombreLibro;
 
     @Column(nullable = false)
-    private String detalles;
+    @Enumerated(EnumType.STRING)
+    private EstadoLibro estado;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -57,28 +56,28 @@ public class TransaccionLibro {
         this.id = id;
     }
 
-    public LocalDate getFechaTransaccion() {
-        return fechaTransaccion;
+    public Libro getLibro() {
+        return libro;
     }
 
-    public void setFechaTransaccion(final LocalDate fechaTransaccion) {
-        this.fechaTransaccion = fechaTransaccion;
+    public void setLibro(Libro libro) {
+        this.libro = libro;
     }
 
-    public String getAccion() {
-        return accion;
+    public String getNombreLibro() {
+        return nombreLibro;
     }
 
-    public void setAccion(final String accion) {
-        this.accion = accion;
+    public void setNombreLibro(String nombreLibro) {
+        this.nombreLibro = nombreLibro;
     }
 
-    public String getDetalles() {
-        return detalles;
+    public EstadoLibro getEstado() {
+        return estado;
     }
 
-    public void setDetalles(final String detalles) {
-        this.detalles = detalles;
+    public void setEstado(EstadoLibro estado) {
+        this.estado = estado;
     }
 
     public OffsetDateTime getDateCreated() {

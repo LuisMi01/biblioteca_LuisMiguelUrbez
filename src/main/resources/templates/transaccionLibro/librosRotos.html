@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" lang="">
+<head>
+    <title>[[#{transaccionLibro.list.headline.LibrosRotos_es_ES}]]</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap mb-4">
+        <h1 class="flex-grow-1">[[#{transaccionLibro.list.headline.LibrosRotos_es_ES}]]</h1>
+        <p class="flex-grow-2">[[#{transaccionLibro.list.slogan.Lista}]]</p>
+    </div>
+    <div th:if="${librosRotos.empty}">[[#{transaccionLibro.list.empty}]]</div>
+    <div th:if="${!librosRotos.empty}" class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Libro</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="libro : ${librosRotos}">
+                <td th:text="${libro.id}"></td>
+                <td th:text="${libro.titulo}"></td>
+                <td th:text="${libro.estado}"></td>
+                <td>
+                    <form th:action="@{/transacciones/arreglar/{id}(id=${libro.id})}" method="post">
+                        <button type="submit">Arreglar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

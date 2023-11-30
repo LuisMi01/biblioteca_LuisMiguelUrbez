@@ -20,11 +20,13 @@
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='renovado', type='checkbox')}"></div>
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='estadoPreestamo', type='radio')}"></div>
 
-ç                <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='libro', type='select')}"></div>
+                <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='libro', type='select')}"></div>
                 <div th:if="${error}" class="alert alert-danger" role="alert">
                     <span th:text="${error}"></span>
                 </div>
-
+                <div th:if="${param.error == 'disponibilidad'}" class="alert alert-danger" role="alert">
+                    No hay libros disponibles en este momento.
+                </div>
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='lector', type='select')}"></div>
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='bibliotecario', type='select')}"></div>
                 <!--<div th:replace="~{fragments/forms::inputRow(object='prestamo', field='prestamoLibroLibroes', type='multiselect')}" />-->
