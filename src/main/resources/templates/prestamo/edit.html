@@ -19,10 +19,24 @@
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='fechaDevolucion', inputClass='js-datepicker')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='renovado', type='checkbox')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='estadoPreestamo', type='radio')}" />
+
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='libro', type='select')}" />
+
+                <div th:if="${libro.estado == 'ROTO'}" class="alert alert-danger" role="alert">
+                    El libro está roto y no puede ser prestado.
+                </div>
+
+                <div th:if="${libro.estado != 'ROTO'}">
+                    <!-- Aquí va el código del formulario para el libro que no está roto -->
+                    <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='libro', type='select')}" />
+                    <!-- Otros campos del formulario -->
+                    <input type="submit" th:value="#{prestamo.edit.headline}" class="btn btn-primary mt-4" />
+                </div>
+
+
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='lector', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='bibliotecario', type='select')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='prestamoLibroLibroes', type='multiselect')}" />
+                <!--<div th:replace="~{fragments/forms::inputRow(object='prestamo', field='prestamoLibroLibroes', type='multiselect')}" />-->
                 <input type="submit" th:value="#{prestamo.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

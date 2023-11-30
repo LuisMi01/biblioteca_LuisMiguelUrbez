@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.ui.Model;
 
 
 @Controller
@@ -123,16 +124,32 @@ public class PrestamoController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Integer id, final Model model) {
         model.addAttribute("prestamo", prestamoService.get(id));
+        PrestamoDTO prestamoDTO = prestamoService.get(id);
+        List<LibroDTO> libro = libroService.findAll();
+        model.addAttribute("prestamo", prestamoDTO);
+        model.addAttribute("libro", libro);
+
         return "prestamo/edit";
     }
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Integer id,
             @ModelAttribute("prestamo") @Valid final PrestamoDTO prestamoDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+            final BindingResult bindingResult, final RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             return "prestamo/edit";
         }
+
+        // Verificar si el libro seleccionado está roto
+        Integer libroSeleccionadoId = prestamoDTO.getLibro();
+        LibroDTO libroSeleccionado = libroService.getById(libroSeleccionadoId);
+
+        if (libroSeleccionado != null && libroSeleccionado.getEstado() == EstadoLibro.ROTO) {
+            // Agregar un mensaje de error al modelo y regresar al formulario
+            model.addAttribute("error", "No puedes prestar un libro roto.");
+            return "prestamo/edit"; // Reemplaza con tu nombre de plantilla real
+        }
+
         prestamoService.update(id, prestamoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("prestamo.update.success"));
         return "redirect:/prestamos";

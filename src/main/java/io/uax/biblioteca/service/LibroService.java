@@ -13,6 +13,8 @@ import io.uax.biblioteca.util.NotFoundException;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,18 @@ public class LibroService {
         this.bibliotecarioRepository = bibliotecarioRepository;
         this.prestamoRepository = prestamoRepository;
     }
+
+    public LibroDTO getById(Integer libroId) {
+        List<LibroDTO> libros = findAll();
+
+        Optional<LibroDTO> optionalLibro = libros.stream()
+                .filter(libro -> libro.getId().equals(libroId))
+                .findFirst();
+
+        return optionalLibro.orElse(null);
+    }
+
+
 
     public List<LibroDTO> findAll() {
         final List<Libro> libroes = libroRepository.findAll(Sort.by("id"));
