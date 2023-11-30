@@ -40,6 +40,9 @@
 <br>
 <br>
 <br>
+##Recursos de la aplicacion
+**Modelo de la base de datos**
+
 
 # Biblioteca
 
