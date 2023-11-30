@@ -5,6 +5,7 @@ import io.uax.biblioteca.domain.Lector;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.Multas;
 import io.uax.biblioteca.domain.Prestamo;
+import io.uax.biblioteca.model.LibroDTO;
 import io.uax.biblioteca.model.PrestamoDTO;
 import io.uax.biblioteca.repos.BibliotecarioRepository;
 import io.uax.biblioteca.repos.LectorRepository;
@@ -16,6 +17,7 @@ import io.uax.biblioteca.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -27,16 +29,18 @@ public class PrestamoService {
 
     private final PrestamoRepository prestamoRepository;
     private final LibroRepository libroRepository;
+    private final LibroService libroService;
     private final LectorRepository lectorRepository;
     private final BibliotecarioRepository bibliotecarioRepository;
     private final MultasRepository multasRepository;
 
     public PrestamoService(final PrestamoRepository prestamoRepository,
-            final LibroRepository libroRepository, final LectorRepository lectorRepository,
-            final BibliotecarioRepository bibliotecarioRepository,
-            final MultasRepository multasRepository) {
+                           final LibroRepository libroRepository, LibroService libroService, final LectorRepository lectorRepository,
+                           final BibliotecarioRepository bibliotecarioRepository,
+                           final MultasRepository multasRepository) {
         this.prestamoRepository = prestamoRepository;
         this.libroRepository = libroRepository;
+        this.libroService = libroService;
         this.lectorRepository = lectorRepository;
         this.bibliotecarioRepository = bibliotecarioRepository;
         this.multasRepository = multasRepository;
@@ -58,7 +62,26 @@ public class PrestamoService {
     public Integer create(final PrestamoDTO prestamoDTO) {
         final Prestamo prestamo = new Prestamo();
         mapToEntity(prestamoDTO, prestamo);
+
+
+        // Reducir la cantidad de libros disponibles del libro prestado
+        LibroDTO libroPrestado = libroService.getById(prestamoDTO.getLibro());
+        libroPrestado.setEjemplaresDisponibles(libroPrestado.getEjemplaresDisponibles() - 1);
+        libroService.update(libroPrestado.getId(), libroPrestado);
+
+
         return prestamoRepository.save(prestamo).getId();
+
+    }
+
+    public PrestamoDTO getById(Integer libroId) {
+        List<PrestamoDTO> libros = findAll();
+
+        Optional<PrestamoDTO> optionalLibro = libros.stream()
+                .filter(libro -> libro.getId().equals(libroId))
+                .findFirst();
+
+        return optionalLibro.orElse(null);
     }
 
     public void update(final Integer id, final PrestamoDTO prestamoDTO) {
@@ -74,6 +97,12 @@ public class PrestamoService {
         lectorRepository.findAllByLectorPrestamoPrestamoes(prestamo)
                 .forEach(lector -> lector.getLectorPrestamoPrestamoes().remove(prestamo));
         prestamoRepository.delete(prestamo);
+
+        /*// Aumentar la cantidad de libros disponibles del libro devuelto
+        PrestamoDTO prestamoDevuelto = get(id);
+        LibroDTO libroDevuelto = libroService.getById(prestamoDevuelto.getLibro());
+        libroDevuelto.setEjemplaresDisponibles(libroDevuelto.getEjemplaresDisponibles() + 1);
+        libroService.update(libroDevuelto.getId(), libroDevuelto);*/
     }
 
     private PrestamoDTO mapToDTO(final Prestamo prestamo, final PrestamoDTO prestamoDTO) {

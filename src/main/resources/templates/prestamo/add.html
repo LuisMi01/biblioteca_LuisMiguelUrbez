@@ -20,10 +20,14 @@
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='estadoPreestamo', type='radio')}" />
 
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='libro', type='select')}" />
+                <div th:if="${error}" class="alert alert-danger" role="alert">
+                    <span th:text="${error}"></span>
+                </div>
+
 
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='lector', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='bibliotecario', type='select')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='prestamo', field='prestamoLibroLibroes', type='multiselect')}" />
+                <!--<div th:replace="~{fragments/forms::inputRow(object='prestamo', field='prestamoLibroLibroes', type='multiselect')}" />-->
                 <input type="submit" th:value="#{prestamo.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

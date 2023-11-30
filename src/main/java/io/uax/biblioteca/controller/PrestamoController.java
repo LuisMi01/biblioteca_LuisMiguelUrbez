@@ -112,10 +112,19 @@ public class PrestamoController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("prestamo") @Valid final PrestamoDTO prestamoDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+            final BindingResult bindingResult, final RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             return "prestamo/add";
         }
+
+        Integer libroSeleccionadoId = prestamoDTO.getLibro();
+        LibroDTO libroSeleccionado = libroService.getById(libroSeleccionadoId);
+
+        if (libroSeleccionado != null && libroSeleccionado.getEstado() == EstadoLibro.ROTO) {
+            model.addAttribute("error", "No puedes prestar un libro roto.");
+            return "prestamo/add";
+        }
+
         prestamoService.create(prestamoDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("prestamo.create.success"));
         return "redirect:/prestamos";
@@ -134,20 +143,18 @@ public class PrestamoController {
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Integer id,
-            @ModelAttribute("prestamo") @Valid final PrestamoDTO prestamoDTO,
+            @ModelAttribute("prestamo") @Valid PrestamoDTO prestamoDTO,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             return "prestamo/edit";
         }
 
-        // Verificar si el libro seleccionado está roto
         Integer libroSeleccionadoId = prestamoDTO.getLibro();
         LibroDTO libroSeleccionado = libroService.getById(libroSeleccionadoId);
 
         if (libroSeleccionado != null && libroSeleccionado.getEstado() == EstadoLibro.ROTO) {
-            // Agregar un mensaje de error al modelo y regresar al formulario
             model.addAttribute("error", "No puedes prestar un libro roto.");
-            return "prestamo/edit"; // Reemplaza con tu nombre de plantilla real
+            return "prestamo/edit";
         }
 
         prestamoService.update(id, prestamoDTO);
