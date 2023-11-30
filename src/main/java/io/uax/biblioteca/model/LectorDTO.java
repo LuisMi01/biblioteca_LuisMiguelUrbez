@@ -18,7 +18,7 @@ public class LectorDTO {
     private String direccion;
 
     @NotNull
-    @Size(max = 20)
+    @Size(min = 9, max = 9, message = "El número de teléfono debe tener exactamente 9 dígitos.")
     private String telefono;
 
     private Integer multas;

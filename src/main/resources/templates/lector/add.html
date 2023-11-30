@@ -16,7 +16,8 @@
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='lector', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='lector', field='direccion')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='lector', field='telefono')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='lector', field='telefono', type='text', id='telefono', name='telefono', class='form-control')}" />
+
 
                 <input type="submit" th:value="#{lector.add.headline}" class="btn btn-primary mt-4" />
             </form>
