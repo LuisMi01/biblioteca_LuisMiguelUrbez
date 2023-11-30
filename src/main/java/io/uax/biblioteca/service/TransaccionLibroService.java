@@ -2,18 +2,17 @@ package io.uax.biblioteca.service;
 
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.TransaccionLibro;
-import io.uax.biblioteca.domain.Usuario;
 import io.uax.biblioteca.model.EstadoLibro;
+import io.uax.biblioteca.model.LibroDTO;
 import io.uax.biblioteca.model.TransaccionLibroDTO;
 import io.uax.biblioteca.repos.LibroRepository;
 import io.uax.biblioteca.repos.TransaccionLibroRepository;
 import io.uax.biblioteca.util.NotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Service
@@ -21,10 +20,12 @@ public class TransaccionLibroService {
 
     private final TransaccionLibroRepository transaccionLibroRepository;
     private final LibroRepository libroRepository;
+    private final LibroService libroService;
 
-    public TransaccionLibroService(TransaccionLibroRepository transaccionLibroRepository, LibroRepository libroRepository) {
+    public TransaccionLibroService(TransaccionLibroRepository transaccionLibroRepository, LibroRepository libroRepository, LibroService libroService) {
         this.transaccionLibroRepository = transaccionLibroRepository;
         this.libroRepository = libroRepository;
+        this.libroService = libroService;
     }
 
     public List<TransaccionLibroDTO> findAll() {
@@ -76,18 +77,11 @@ public class TransaccionLibroService {
 
     public List<Libro> getLibrosRotos() {
         return libroRepository.findByEstado(EstadoLibro.ROTO);
-
-        /*List<TransaccionLibro> transaccionesRotos = transaccionLibroRepository.findByEstado(EstadoLibro.ROTO);
-
-        return transaccionesRotos.stream()
-                .map(TransaccionLibro::getLibro)
-                .collect(Collectors.toList());*/
+    }
+    @Async("taskExecutor")
+    public void arreglarLibroAsync(Libro libroId) {
+        libroService.arreglarLibro(libroId);
     }
 
-
-    public void arreglarLibro() {
-        // Implementar lógica para cambiar el estado del libro a NUEVO
-        // Puedes obtener el TransaccionLibro por su ID, actualizar el estado y guardar.
-    }
 
 }

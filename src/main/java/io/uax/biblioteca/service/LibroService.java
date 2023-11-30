@@ -4,6 +4,7 @@ import io.uax.biblioteca.domain.Biblioteca;
 import io.uax.biblioteca.domain.Bibliotecario;
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.domain.Prestamo;
+import io.uax.biblioteca.model.EstadoLibro;
 import io.uax.biblioteca.model.LibroDTO;
 import io.uax.biblioteca.repos.BibliotecaRepository;
 import io.uax.biblioteca.repos.BibliotecarioRepository;
@@ -69,6 +70,12 @@ public class LibroService {
         return libroRepository.findById(id)
                 .map(libro -> mapToDTO(libro, new LibroDTO()))
                 .orElseThrow(NotFoundException::new);
+    }
+
+    public Libro convertirLibroDTOaLibro(LibroDTO libroDTO) {
+        Libro libro = new Libro();
+        libro.setId(libroDTO.getId());
+        return libro;
     }
 
     public Integer create(final LibroDTO libroDTO) {
@@ -137,4 +144,15 @@ public class LibroService {
         return null;
     }
 
+    public void arreglarLibro(Libro libroId) {
+        libroId.setEstado(EstadoLibro.NUEVO);
+        libroRepository.save(libroId);
+    }
+
+    public void updateEstado(Integer id, EstadoLibro estadoLibro) {
+        final Libro libro = libroRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        libro.setEstado(estadoLibro);
+        libroRepository.save(libro);
+    }
 }
