@@ -66,8 +66,6 @@ public class TransaccionLibroService {
         return transaccionLibroDTO;
     }
 
-
-
     private TransaccionLibro mapToEntity(final TransaccionLibroDTO transaccionLibroDTO,
             final TransaccionLibro transaccionLibro) {
         transaccionLibro.setLibro(libroRepository.findByTitulo(transaccionLibroDTO.getLibro()));
@@ -77,11 +75,15 @@ public class TransaccionLibroService {
     }
 
     public List<Libro> getLibrosRotos() {
-        return transaccionLibroRepository.findByEstado(EstadoLibro.ROTO).stream()
-                .map(TransaccionLibro::getLibro)
-                .toList();
+        return libroRepository.findByEstado(EstadoLibro.ROTO);
 
+        /*List<TransaccionLibro> transaccionesRotos = transaccionLibroRepository.findByEstado(EstadoLibro.ROTO);
+
+        return transaccionesRotos.stream()
+                .map(TransaccionLibro::getLibro)
+                .collect(Collectors.toList());*/
     }
+
 
     public void arreglarLibro() {
         // Implementar lógica para cambiar el estado del libro a NUEVO

@@ -2,6 +2,7 @@ package io.uax.biblioteca.controller;
 
 import io.uax.biblioteca.domain.Libro;
 import io.uax.biblioteca.model.TransaccionLibroDTO;
+import io.uax.biblioteca.service.LibroService;
 import io.uax.biblioteca.service.TransaccionLibroService;
 import io.uax.biblioteca.util.WebUtils;
 import jakarta.validation.Valid;
@@ -23,9 +24,11 @@ import java.util.List;
 public class TransaccionLibroController {
 
     private final TransaccionLibroService transaccionLibroService;
+    private final LibroService libroService;
 
-    public TransaccionLibroController(final TransaccionLibroService transaccionLibroService) {
+    public TransaccionLibroController(final TransaccionLibroService transaccionLibroService, LibroService libroService) {
         this.transaccionLibroService = transaccionLibroService;
+        this.libroService = libroService;
     }
 
     @GetMapping("/librosRotos")
@@ -35,15 +38,11 @@ public class TransaccionLibroController {
         return "transaccionLibro/librosRotos";
     }
 
+
     @PostMapping("/arreglarLibros")
     public String arreglarLibros() {
         transaccionLibroService.arreglarLibro();
         return "redirect:/librosRotos";
-    }
-    @GetMapping
-    public String list(final Model model) {
-        model.addAttribute("transaccionLibroes", transaccionLibroService.findAll());
-        return "transaccionLibro/list";
     }
 
     @GetMapping("/add")
