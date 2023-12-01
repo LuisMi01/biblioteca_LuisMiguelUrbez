@@ -1,48 +1,36 @@
-# Proyecto de Programacion Concurrente en Java con las biblioteclas JPA e Hibernate de Luis Miguel Urbez <br>
-<br>
-## Enunciado del proyecto
-<br>
-**Contexto del problema:** En una biblioteca publica grande, existen miles de libros y cientos de lectores que buscan pedir prestados, devolver y renovar estos libros. ademas, los bibliotecarios deben ser capaces de agregar nuevos libros al sistema, eliminar libros obsoletos o danados, y realizar un seguimiento de los prestamos de libros. Para manejar estas tareas de forma eficiente y segura, necesitamos desarrollar un Sistema de Gestion de Bibliotecas (LMS por sus siglas en ingles) que use Hibernate y JPA para interactuar con una base de datos SQL y que pueda manejar solicitudes concurrentes de manera segura.
-<br>
-### Requisitos tecnicos:
-<br>
-<ul>
-<li>Dise&ntilde;ar e implementar un modelo de datos para la biblioteca. Esto debe incluir clases para libros, lectores, pr&eacute;stamos, y cualquier otra entidad que considere necesaria. </li>
-<li>Utilice Hibernate y JPA para mapear sus clases de dominio a las tablas de la base de datos.</li>
-<li>Proporcione una API que permita a los clientes (bibliotecarios y lectores) realizar las operaciones b&aacute;sicas de la biblioteca, como buscar libros, pedir prestados libros, devolver libros, renovar pr&eacute;stamos, agregar nuevos libros y eliminar libros obsoletos.(https://www.nigmacode.com/java/crear-api-rest-con-spring/)</li>
-<li>Implemente el control de concurrencia para evitar condiciones de carrera, por ejemplo, dos lectores que intentan pedir prestado el mismo libro al mismo tiempo. </li>
-<li>Implemente auditor&iacute;a y control de versiones para realizar un seguimiento de qui&eacute;n hace qu&eacute; y cu&aacute;ndo en el sistema. </li>
-<li>Utilice una cach&eacute; para mejorar el rendimiento de las operaciones comunes, como buscar libros. </li>
-<li>Utilice pruebas unitarias e integraci&oacute;n para verificar el correcto funcionamiento de su aplicaci&oacute;n. </li>
-</ul>
-<br>
-### Entregables:
-<br>
-<ul>
-<li>C&oacute;digo fuente de la aplicaci&oacute;n.</li>
-<li>Diagrama de la base de datos y las clases de dominio.</li>
-<li>Un informe que describa el dise&ntilde;o de su aplicaci&oacute;n, c&oacute;mo maneja la concurrencia y c&oacute;mo interact&uacute;a con la base de datos.(https://es.overleaf.com/) </li>
-<li>Pruebas unitarias e integraci&oacute;n, junto con un informe de los resultados de las pruebas.</li>
-<li>Documentaci&oacute;n del usuario sobre c&oacute;mo utilizar la API de la aplicaci&oacute;n.(https://docs.github.com/es/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) </li>
-<li>Una reflexi&oacute;n sobre los desaf&iacute;os que encontr&oacute; durante el desarrollo de la aplicaci&oacute;n y c&oacute;mo los super&oacute;. </li>
-</ul>
-<br>
+# Proyecto de Programación Concurrente en Java con las bibliotecas JPA e Hibernate de Luis Miguel Urbez
 
-### Criterios de evaluaci&oacute
-<br>
-<ul>
-<li>Correcta implementaci&oacute;n de la concurrencia y el manejo de datos con Hibernate y JPA.</li>
-<li>Complejidad y robustez de las pruebas realizadas. </li>
-<li>Claridad y calidad del c&oacute;digo, del diagrama de la base de datos y de la documentaci&oacute;n.</li>
-<li>Reflexi&oacute;n cr&iacute;tica sobre el proceso de desarrollo. </li>
-<li>Funcionalidad y facilidad de uso de la aplicaci&oacute;n.</li>
-</ul>
-<br>
-<br>
-<br>
-##Recursos de la aplicacion
-**Modelo de la base de datos**
-<img https://www.plantuml.com/plantuml/dsvg/XL9DRziy3BxhL_Zuli2QRZlcL2Ss1WDf4xZPxhJDTYnaCP3aOX_OVnyjs0tdjEZ9rlD1FY9r4oBuEFJM67H3dzLiizyco_BYjhgJxwRQxAhziTpcTRMNywxS7lUr-JF9Ix5tlAF6Sx8LrVrXVoUUKWvrUL_Mt_9Yz1taS1n_nTbQ227RK6E98xQGdDIjCt9H_gwlittq73A8dfeXSbYjLcVVrp209rwO7FUDntKMnECU1MZPHGy17IZGirsFLtmbnRirpvuTjf7zUm4wyjYsn4vX4Iq-iEFBcddNazCbpzGyNTqjKXmigyemI2Hrneu48B0QUyB-PC5ZE784Ys6gfeY2meaTDPfCArxhLP-p7Vn8zyju3zX-XuaJQmSHPxJ0PxP3cikCUtJyd7eqp1R1gQxBETqEDa9OJcEyZfJ3bdgm_ttw-27x_ByAoPOYjV16s1v-50HXPXLSfs1ZLWmlIr7lzkhgvJMkiosxIEZGJ92mYzSrpZ0FzEYWurp9fWVrDfyUnu9Uv4XxKIaKVP55P4SF3Jn1wSpKMmJJQ8LC1LBJ2sD2AKGFnimJq_qhrzhX9ofENI-1ARscbqEg4Ipz4jc1lJ5Jgd_Ae8_ei2Lq4NEbcAkAvei8KiR5xYylTB92pxByDODQyZH_qPaRTDtGM_CN">
+## Primer enunciado del proyecto
+
+**Contexto del problema:**
+En una biblioteca pública grande, existen miles de libros y cientos de lectores que buscan pedir prestados, devolver y renovar estos libros. Además, los bibliotecarios deben ser capaces de agregar nuevos libros al sistema, eliminar libros obsoletos o dañados, y realizar un seguimiento de los préstamos de libros. Para manejar estas tareas de forma eficiente y segura, necesitamos desarrollar un Sistema de Gestión de Bibliotecas (LMS por sus siglas en inglés) que use Hibernate y JPA para interactuar con una base de datos SQL y que pueda manejar solicitudes concurrentes de manera segura.
+
+### Requisitos técnicos:
+
+- Diseñar e implementar un modelo de datos para la biblioteca. Esto debe incluir clases para libros, lectores, préstamos y cualquier otra entidad que considere necesaria.
+- Utilizar Hibernate y JPA para mapear sus clases de dominio a las tablas de la base de datos.
+- Proporcionar una API que permita a los clientes (bibliotecarios y lectores) realizar las operaciones básicas de la biblioteca, como buscar libros, pedir prestados libros, devolver libros, renovar préstamos, agregar nuevos libros y eliminar libros obsoletos. (https://www.nigmacode.com/java/crear-api-rest-con-spring/)
+- Implementar el control de concurrencia para evitar condiciones de carrera, por ejemplo, dos lectores que intentan pedir prestado el mismo libro al mismo tiempo.
+- Implementar auditoría y control de versiones para realizar un seguimiento de quién hace qué y cuándo en el sistema.
+- Utilizar una caché para mejorar el rendimiento de las operaciones comunes, como buscar libros.
+- Utilizar pruebas unitarias e integración para verificar el correcto funcionamiento de su aplicación.
+
+### Entregables:
+
+- Código fuente de la aplicación.
+- Diagrama de la base de datos y las clases de dominio.
+- Un informe que describa el diseño de su aplicación, cómo maneja la concurrencia y cómo interactúa con la base de datos. (https://es.overleaf.com/)
+- Pruebas unitarias e integración, junto con un informe de los resultados de las pruebas.
+- Documentación del usuario sobre cómo utilizar la API de la aplicación. (https://docs.github.com/es/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+- Una reflexión sobre los desafíos que encontró durante el desarrollo de la aplicación y cómo los superó.
+
+### Criterios de evaluación:
+
+- Correcta implementación de la concurrencia y el manejo de datos con Hibernate y JPA.
+- Complejidad y robustez de las pruebas realizadas.
+- Claridad y calidad del código, del diagrama de la base de datos y de la documentación.
+- Reflexión crítica sobre el proceso de desarrollo.
+- Funcionalidad y facilidad de uso de la aplicación.
 
 # Biblioteca
 
